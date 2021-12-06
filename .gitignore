@@ -27,7 +27,6 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-.gitignore
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -129,3 +128,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# DS.store
+.DS_Store
