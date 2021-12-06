@@ -1,6 +1,18 @@
+# https://www.treecouncil.ie/native-irish-trees
 show databases;
 use native_irish_trees;
+drop table trees;
+
+create table trees (
+id int PRIMARY KEY, 
+english_name varchar(255), 
+irish_name varchar(255), 
+scientific_name varchar(255)
+);
+
 select * from trees;
+
+INSERT INTO trees VALUES (1, "Alder", "Fearnóg", "Alnus glutinosa");
 INSERT INTO trees VALUES (2, "Arbutus (Strawberry Tree)", "Caithne", "Arbutus unedo");
 INSERT INTO trees VALUES (3, "Ash", "Fuinseóg", "Fraxinus excelsior");
 INSERT INTO trees VALUES (4, "Aspen", "Crann creathach", "Populus tremula");
@@ -33,4 +45,3 @@ INSERT INTO trees VALUES (31, "Whitebeam", "Fionncholl", "Sorbus spp.");
 INSERT INTO trees VALUES (32, "Willow", "Saileach", "Salix spp.");
 INSERT INTO trees VALUES (33, "Wych Elm", "Leamhán sléibhe", "Ulmus glabra");
 INSERT INTO trees VALUES (34, "Yew", "Lúr", "Taxus baccata");
-
