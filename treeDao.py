@@ -1,3 +1,4 @@
+# This program performs CRUD operations on a database.
 import mysql.connector
 
 # Create class to access database.
@@ -9,15 +10,14 @@ class treeDao:
             host = 'localhost', 
             user = 'root', 
             password = '',
-            database = 'native_trees'
+            database = 'native_irish_trees'
         )
         #print("Connection made!")
 
     def create(self, tree):
         cursor = self.db.cursor()
-        sql = "insert into trees (tree_id, english_name, irish_name, scientific_name) values (%s,%s,%s,%s)"
+        sql = "insert into trees (english_name, irish_name, scientific_name) values (%s,%s,%s)"
         values = [
-            tree['tree_id'], 
             tree['english_name'], 
             tree['irish_name'], 
             tree['scientific_name']
@@ -35,7 +35,7 @@ class treeDao:
     
     def findByID(self, id):
         cursor = self.db.cursor()
-        sql = "select * from trees where id = %s"
+        sql = "select * from trees where tree_id = %s"
         values = (id,)
         cursor.execute(sql, values)
         result = cursor.fetchone()
@@ -43,8 +43,17 @@ class treeDao:
 
     def update(self, values):
         cursor = self.db.cursor()
-        sql = "update trees set english_name = %s, irish_name = %s, scientific_name = %s where id = %s"
+        sql = "update trees set english_name = %s, irish_name = %s, scientific_name = %s where tree_id = %s"
         cursor.execute(sql, values)
         self.db.commit()
+        print("Update complete.")
+
+    def delete(self, id):
+        cursor = self.db.cursor()
+        sql = "delete from trees where tree_id = %s"
+        values = (id,)
+        cursor.execute(sql, values)
+        self.db.commit()
+        print("Delete successful.")
 
 treeDao = treeDao()
