@@ -4,6 +4,7 @@ import mysql.connector
 # Create class to access database.
 class treeDao:
     db = ""
+    
     # Initiate database.
     def __init__(self):
         self.db = mysql.connector.connect(
@@ -30,23 +31,34 @@ class treeDao:
         cursor = self.db.cursor()
         sql = "select * from trees"
         cursor.execute(sql)
-        result = cursor.fetchall()
-        return result
-    
+        results = cursor.fetchall()
+        returnArray = []
+        #print(results)
+        for result in results:
+            resultAsDict = self.convertToDict(result)
+            returnArray.append(resultAsDict)
+        return returnArray
+
     def findByID(self, id):
         cursor = self.db.cursor()
         sql = "select * from trees where tree_id = %s"
         values = (id,)
         cursor.execute(sql, values)
         result = cursor.fetchone()
-        return result
+        return self.convertToDict(result)
 
-    def update(self, values):
+    def update(self, tree): 
         cursor = self.db.cursor()
         sql = "update trees set english_name = %s, irish_name = %s, scientific_name = %s where tree_id = %s"
+        values = [
+            tree['english_name'],
+            tree['irish_name'],
+            tree['scientific_name'],
+            tree['tree_id']
+        ]
         cursor.execute(sql, values)
         self.db.commit()
-        print("Update complete.")
+        return tree
 
     def delete(self, id):
         cursor = self.db.cursor()
@@ -55,5 +67,17 @@ class treeDao:
         cursor.execute(sql, values)
         self.db.commit()
         print("Delete successful.")
+        # Add in code to see if id exists
 
+    def convertToDict(self, result):
+        colNames = ['tree_id', 'english_name', 'irish_name', 'scientific_name']
+        tree = {}
+
+        if result:
+            for i, colName in enumerate(colNames):
+                value = result[i]
+                tree[colName] = value
+        return tree
+
+    
 treeDao = treeDao()

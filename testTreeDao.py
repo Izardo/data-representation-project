@@ -7,4 +7,13 @@ tree = {
     'scientific_name' : 'Sprucirea'
 }
 
-returnvalue = treeDao.create(tree)
+
+tree1 = {'english_name' : 'hello', 
+        'irish_name' : 'meh',
+        'scientific_name' : 'wah', 
+        'tree_id' : 1004
+        }
+
+returnValue = treeDao.delete(1000)
+#returnValue = treeDao.getAll()
+print(returnValue)
