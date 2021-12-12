@@ -1,3 +1,5 @@
+# This program was used to test the functioning of the DAO.
+
 from treeDao import treeDao
 
 # Create JSON object.
