@@ -1,16 +1,19 @@
 /* https://www.treecouncil.ie/native-irish-trees */
-show databases;
-use native_irish_trees;
 
-drop table trees;
+-- Create database.
+create database native_irish_trees;
+use database native_irish_trees;
 
+-- Create table.
 create table trees (
-tree_id int PRIMARY KEY, 
+tree_id int NOT NULL AUTO_INCREMENT, 
 english_name varchar(255), 
 irish_name varchar(255), 
-scientific_name varchar(255)
+scientific_name varchar(255),
+PRIMARY KEY(tree_id)
 );
 
+-- Populate table.
 INSERT INTO trees VALUES (1, "Alder", "Fearnóg", "Alnus glutinosa");
 INSERT INTO trees VALUES (2, "Arbutus (Strawberry Tree)", "Caithne", "Arbutus unedo");
 INSERT INTO trees VALUES (3, "Ash", "Fuinseóg", "Fraxinus excelsior");
