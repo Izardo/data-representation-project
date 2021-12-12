@@ -1,7 +1,7 @@
 # This program performs CRUD operations on a database.
 import mysql.connector
 
-# Create class to access database.
+# Class to access database.
 class treeDao:
     db = ""
     
@@ -15,6 +15,7 @@ class treeDao:
         )
         #print("Connection made!")
 
+    # Create new record in database. 
     def create(self, tree):
         cursor = self.db.cursor()
         sql = "insert into trees (english_name, irish_name, scientific_name) values (%s,%s,%s)"
@@ -27,6 +28,7 @@ class treeDao:
         self.db.commit()
         return cursor.lastrowid
 
+    # Retrieve all records from database.
     def getAll(self):
         cursor = self.db.cursor()
         sql = "select * from trees"
@@ -39,6 +41,7 @@ class treeDao:
             returnArray.append(resultAsDict)
         return returnArray
 
+    # Finds record with specified id. 
     def findByID(self, id):
         cursor = self.db.cursor()
         sql = "select * from trees where tree_id = %s"
@@ -47,6 +50,7 @@ class treeDao:
         result = cursor.fetchone()
         return self.convertToDict(result)
 
+    # Updates a record specified by id. 
     def update(self, tree): 
         cursor = self.db.cursor()
         sql = "update trees set english_name = %s, irish_name = %s, scientific_name = %s where tree_id = %s"
@@ -60,6 +64,7 @@ class treeDao:
         self.db.commit()
         return tree
 
+    # Deletes record specified by id. 
     def delete(self, id):
         cursor = self.db.cursor()
         sql = "delete from trees where tree_id = %s"
@@ -69,6 +74,7 @@ class treeDao:
         print("Delete successful.")
         # Add in code to see if id exists
 
+    # Converts record from tuple to dict object. 
     def convertToDict(self, result):
         colNames = ['tree_id', 'english_name', 'irish_name', 'scientific_name']
         tree = {}
