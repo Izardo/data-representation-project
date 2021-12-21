@@ -1,4 +1,4 @@
-/* https://www.treecouncil.ie/native-irish-trees */
+/* Data source: https://www.treecouncil.ie/native-irish-trees */
 
 -- Create database.
 create database native_irish_trees;

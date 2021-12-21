@@ -9,7 +9,6 @@ tree = {
     'scientific_name' : 'Sprucirea'
 }
 
-
 tree1 = {'english_name' : 'hello', 
         'irish_name' : 'meh',
         'scientific_name' : 'wah', 

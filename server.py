@@ -2,15 +2,17 @@
 # "Flask-RESTful is an extension for Flask that adds support for quickly building REST APIs."
 # Author: Isabell Doyle
 
-# Command to run flask from terminal: 
+# Command to run flask from terminal - go to folder: 
 # FLASK_APP=server.py FLASK_ENV=development flask run
 
 # -*- coding: utf-8 -*-
 
 from flask import Flask , url_for, request, redirect, abort, jsonify
+from flask_cors import CORS
 from treeDao import treeDao
 
 app = Flask(__name__, static_url_path='', static_folder='Static_pages')
+CORS(app)
 
 @app.route('/')
 def index():

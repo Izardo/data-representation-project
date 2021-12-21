@@ -84,6 +84,5 @@ class treeDao:
                 value = result[i]
                 tree[colName] = value
         return tree
-
-    
+         
 treeDao = treeDao()
