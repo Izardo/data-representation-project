@@ -8,11 +8,11 @@
 <body>
     <!-- Form with create & update database functionality DO FORM VALIDATION -->
     <div id="create-update" style="display:none"> <!-- display:none hides table -->
-        <h2>Create New Tree Record</h2>
+        <h2>Create/Update</h2>
         <table id="createUpdateForm"> 
             <tr>
                 <td>Tree ID</td>
-                <td><input type="number" name="tree_id" id="tree_id_input"></td>
+                <td><input type="number" name="tree_id" id="tree_id_input" disabled></td>
             </tr>
             <tr>
                 <td>English Name</td>
@@ -63,25 +63,26 @@
         // Shows the update form and to allow update for record that was clicked on.
         function showUpdate(thisElem){
             var rowElement = thisElem.parentNode.parentNode;
-            tree_id = rowElement.getAttribute("id");
+            tree = readTreeFromRow(rowElement)
             populateForm(tree)
-
             document.getElementById("tree_id_input").value = tree_id
             document.getElementById("tree_id_input").disabled = true
-
             document.getElementById('display').style.display = "none"
             document.getElementById('update_button').style.display = "block"
             document.getElementById('create_button').style.display = "none"
             document.getElementById('create-update').style.display = "block"
         }
+        // Reads in tree from row by id for updating record.
         function readTreeFromRow(rowElement){
             tree = {}
-            tree.tree_id = rowElement.getAttribute("id");
+            tree.tree_id = rowElement.getAttribute("id")
             tree.english_name = rowElement.cells[1].firstChild.textContent
             tree.irish_name = rowElement.cells[2].firstChild.textContent
             tree.scientific_name = rowElement.cells[3].firstChild.textContent
+
             return tree
         }
+        // 
         function populateForm(tree){
             var form = document.getElementById('createUpdateForm')
             form.querySelector('input[name="tree_id"]').disabled=true
@@ -92,17 +93,17 @@
             form.querySelector('input[name="scientific_name"]').value = tree.scientific_name  
             return tree    
         }
-        // function clearForm() {
-        //         var form = document.getElementById('createUpdateForm')
-        //         form.querySelector('input[name="tree_id"]').value = ''
-        //         form.querySelector('input[name="tree_id"]').disabled = false
-        //         form.querySelector('input[name="english_name"]').value = ''
-        //         form.querySelector('input[name="irish_name"]').value = ''
-        //         form.querySelector('input[name="scientific_name"]').value = ''
-        // }
-        // Creates/updates database record with input from createUpdateForm.
+        // Clears form so new entries can be made easily.
+        function clearForm() {
+                var form = document.getElementById('createUpdateForm')
+                form.querySelector('input[name="tree_id"]').value = ''
+                form.querySelector('input[name="tree_id"]').disabled = false
+                form.querySelector('input[name="english_name"]').value = ''
+                form.querySelector('input[name="irish_name"]').value = ''
+                form.querySelector('input[name="scientific_name"]').value = ''
+        }
+        // Creates tree record on database.
         function doCreate(){
-            console.log("in doCreate")
             tree = getTreeFromForm()
             //console.log(tree)
             $.ajax({
@@ -115,18 +116,20 @@
                     console.log(result) 
                     addTreeToTable(tree)
                     showDisplay()
-                    //clearForm()
+                    clearForm()
                 },
                 error:function(xhr,status,error){
                     console.log("error"+error)
                 }
             }) 
         }
+        // Calls functions to update tree record on server and database. 
         function doUpdate(){
             tree = getTreeFromForm()
             updateServer(tree)
+            clearForm();
         }
-        // Deletes database record via delete button on user interface.
+        // Deletes tree record on database.
         function doDelete(thisElem){
             var tableElement = document.getElementById('treeTable');
             var rowElement = thisElem.parentNode.parentNode;
@@ -144,46 +147,45 @@
                 }
             })  
         }
-        // Gets user input from form to create or update record in database. 
+        // Gets user input from form and returns dict object with tree info. 
         function getTreeFromForm(){
             var form = document.getElementById('createUpdateForm')
             var tree = {}
-
             tree.tree_id = form.querySelector('input[name="tree_id"]').value
             tree.english_name = form.querySelector('input[name="english_name"]').value
             tree.irish_name = form.querySelector('input[name="irish_name"]').value
             tree.scientific_name = form.querySelector('input[name="scientific_name"]').value
-
-            console.log(JSON.stringify(tree))
             return tree
         }
+        // Updates tree record in database.
         function updateServer(tree){
+            //console.log(JSON.stringify(tree));
            $.ajax({
                 url: "/trees/"+tree.tree_id,
                 data: JSON.stringify(tree),
                 method: "PUT",
                 dataType: "JSON",
-                contentType: "application/json; charset=utf-8",
+                contentType: "application/json; charset=iso-8859-1", // Use iso-8859-1 charset to deal with fada in Irish language
                 success: function (result) {
                     console.log(result)
                     updateTableRow(tree)
                     showDisplay()
-                    //clearForm()
+                    clearForm()
                 },
                 error: function (xhr, status, error) {
                     console.log("error" + error)
                 }
             })
         }
+        // Populates table row.
         function updateTableRow(tree){
             rowElement = document.getElementById(tree.tree_id)
             rowElement.cells[1].firstChild.textContent = tree.english_name
             rowElement.cells[2].firstChild.textContent = tree.irish_name
             rowElement.cells[3].firstChild.textContent = tree.scientific_name
-            //console.log("updating table")
         }
+        // Gets all records from database and adds to table on server.
         function populateTable(){
-            //ajax getAll @ 21:00
            $.ajax({
                url:'http://127.0.0.1:5000/trees',
                method:'GET',
@@ -198,8 +200,8 @@
                }
            })
         }
+        // Structure for adding tree record to server.
         function addTreeToTable(tree){
-            //console.log("working so far")
             tableElem = document.getElementById("treeTable")
             rowElem = tableElem.insertRow(-1)
             rowElem.setAttribute("id", tree.tree_id)
@@ -216,6 +218,7 @@
             cell6 = rowElem.insertCell(5)
             cell6.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
         }
+        // Calls function to populate table on server with records from the database.
         populateTable()
     </script>
 </body>
