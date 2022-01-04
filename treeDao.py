@@ -1,5 +1,8 @@
-# This program performs CRUD operations on a database.
+# Program performs CRUD operations on a database.
+# Author: Isabella Doyle
+
 import mysql.connector
+import dbconfig as cfg
 
 # Class to access database.
 class treeDao:
@@ -8,10 +11,10 @@ class treeDao:
     # Initiate database.
     def __init__(self):
         self.db = mysql.connector.connect(
-            host = 'localhost', 
-            user = 'root', 
-            password = '',
-            database = 'native_irish_trees'
+            host = cfg.mysql['host'], 
+            user = cfg.mysql['username'], 
+            password = cfg.mysql['password'],
+            database = cfg.mysql['database']
         )
         #print("Connection made!")
 
@@ -41,7 +44,7 @@ class treeDao:
             returnArray.append(resultAsDict)
         return returnArray
 
-    # Finds record with specified id. 
+    # Find record with specified id. 
     def findByID(self, id):
         cursor = self.db.cursor()
         sql = "select * from trees where tree_id = %s"
@@ -50,7 +53,7 @@ class treeDao:
         result = cursor.fetchone()
         return self.convertToDict(result)
 
-    # Updates a record specified by id. 
+    # Update a record specified by id. 
     def update(self, tree): 
         cursor = self.db.cursor()
         sql = "update trees set english_name = %s, irish_name = %s, scientific_name = %s where tree_id = %s"
@@ -64,7 +67,7 @@ class treeDao:
         self.db.commit()
         return tree
 
-    # Deletes record specified by id. 
+    # Delete record specified by id. 
     def delete(self, id):
         cursor = self.db.cursor()
         sql = "delete from trees where tree_id = %s"
@@ -74,7 +77,7 @@ class treeDao:
         print("Delete successful.")
         # Add in code to see if id exists
 
-    # Converts record from tuple to dict object. 
+    # Convert record from tuple to dict object. 
     def convertToDict(self, result):
         colNames = ['tree_id', 'english_name', 'irish_name', 'scientific_name']
         tree = {}
