@@ -46,6 +46,9 @@
         </table>
     </div>
     <script>
+        // Store host address.
+        host = window.location.origin
+
         // Displays create/Update form & create button. Hides user interface & update button.
         function showCreate(){
             document.getElementById('display').style.display = "none"
@@ -60,17 +63,16 @@
                 document.getElementById('update_button').style.display = "block"
                 document.getElementById('create_button').style.display = "none"
         }
-        // Shows the update form and to allow update for record that was clicked on.
+        // Shows the update form and allows update for record that was clicked on.
         function showUpdate(thisElem){
             var rowElement = thisElem.parentNode.parentNode;
             tree = readTreeFromRow(rowElement)
             populateForm(tree)
-            document.getElementById("tree_id_input").value = tree_id
-            document.getElementById("tree_id_input").disabled = true
+
             document.getElementById('display').style.display = "none"
-            document.getElementById('update_button').style.display = "block"
-            document.getElementById('create_button').style.display = "none"
             document.getElementById('create-update').style.display = "block"
+            document.getElementById('update_button').style.display = "block"
+            document.getElementById('create_button').style.display = "none"        
         }
         // Reads in tree from row by id for updating record.
         function readTreeFromRow(rowElement){
@@ -79,13 +81,12 @@
             tree.english_name = rowElement.cells[1].firstChild.textContent
             tree.irish_name = rowElement.cells[2].firstChild.textContent
             tree.scientific_name = rowElement.cells[3].firstChild.textContent
-
             return tree
         }
         // 
         function populateForm(tree){
             var form = document.getElementById('createUpdateForm')
-            form.querySelector('input[name="tree_id"]').disabled=true
+            form.querySelector('input[name="tree_id"]').disabled = true
 
             form.querySelector('input[name="tree_id"]').value = tree.tree_id
             form.querySelector('input[name="english_name"]').value = tree.english_name
@@ -107,18 +108,18 @@
             tree = getTreeFromForm()
             //console.log(tree)
             $.ajax({
-                url:"/trees",
-                data:JSON.stringify(tree),
-                method:"POST",
-                dataType:"JSON",
+                url: host+"/trees",
+                data: JSON.stringify(tree),
+                method: "POST",
+                dataType: "JSON",
                 contentType: "application/json; charset=utf-8",
-                success:function(result){
+                success: function(result){
                     console.log(result) 
                     addTreeToTable(tree)
                     showDisplay()
                     clearForm()
                 },
-                error:function(xhr,status,error){
+                error: function(xhr,status,error){
                     console.log("error"+error)
                 }
             }) 
@@ -136,13 +137,13 @@
             var index = rowElement.rowIndex;
             tree_id = rowElement.getAttribute("id");
             $.ajax({
-                url:"/trees/"+tree_id,
-                method:"DELETE",
-                dateType:"JSON",
-                success:function(result){
+                url: host+"/trees/"+tree_id,
+                method: "DELETE",
+                dateType: "JSON",
+                success: function(result){
                     tableElement.deleteRow(index);
                 },
-                error:function(xhr,status,error){
+                error: function(xhr,status,error){
                     console.log(error)
                 }
             })  
@@ -161,7 +162,7 @@
         function updateServer(tree){
             //console.log(JSON.stringify(tree));
            $.ajax({
-                url: "/trees/"+tree.tree_id,
+                url: host+"/trees/"+tree.tree_id,
                 data: JSON.stringify(tree),
                 method: "PUT",
                 dataType: "JSON",
@@ -187,16 +188,16 @@
         // Gets all records from database and adds to table on server.
         function populateTable(){
            $.ajax({
-               url:'http://127.0.0.1:5000/trees',
-               method:'GET',
-               datatype:'JSON',
-               success:function(results){
+               url: host+'/trees',
+               method: 'GET',
+               datatype: 'JSON',
+               success: function(results){
                     for (tree of results){
                          addTreeToTable(tree)
                     }
                },
-               error:function (xhr,status,error){
-                   console.log ("error " + error + " code:" + status)
+               error: function(xhr,status,error){
+                   console.log("error " + error + " code:" + status)
                }
            })
         }
@@ -220,6 +221,8 @@
         }
         // Calls function to populate table on server with records from the database.
         populateTable()
+        
+        //console.log(host)
     </script>
 </body>
 </html>
