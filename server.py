@@ -7,16 +7,16 @@
 
 # -*- coding: utf-8 -*-
 
-from flask import Flask , url_for, request, redirect, abort, jsonify, render_template
+from flask import Flask , url_for, request, redirect, abort, jsonify
 from flask_cors import CORS
 from treeDao import treeDao
 
-app = Flask(__name__, static_url_path='', static_folder='templates')
+app = Flask(__name__, static_url_path='', static_folder='Static_pages')
 CORS(app)
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return "Tree database"
 
 # Gets all tree records.
 @app.route('/trees')
