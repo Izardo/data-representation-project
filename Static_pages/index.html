@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -5,47 +6,132 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
+<style>
+#body {
+    background-color: white;
+    padding: 5%;
+}
+#treeTable {
+    background-color: #f8faf7;
+    border-radius: 5px;
+    border: 1px;
+    border-style: groove;
+}
+h2 {
+    background-color: #344326;
+    padding: 5%;
+    border-radius: 5px;
+    color: white;
+    font-size: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+h3 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+img {
+    float: right;
+    width: 200px;
+}
+/* Button style. Code adapted from: https://getcssscan.com/css-buttons-examples */
+button {
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+button:hover {
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+button:disabled {
+  background-color: #FAFBFC;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959DA5;
+  cursor: default;
+}
+button:active {
+  background-color: #EDEFF2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+button:focus {
+  outline: 1px transparent;
+}
+button:before {
+  display: none;
+}
+button:-webkit-details-marker {
+  display: none;
+}
+</style>
+<img src="https://www.hansenstree.com/wp-content/uploads/2021/02/contact-tree.png" alt="Tree">
+<body id="body">   
     <!-- Form with create & update database functionality DO FORM VALIDATION -->
     <div id="create-update" style="display:none"> <!-- display:none hides table -->
-        <h2>Create/Update</h2>
-        <table id="createUpdateForm"> 
-            <tr>
-                <td>Tree ID</td>
-                <td><input type="number" name="tree_id" id="tree_id_input" disabled></td>
-            </tr>
-            <tr>
-                <td>English Name</td>
-                <td><input type="text" name="english_name"></td>
-            </tr>
-            <tr>
-                <td>Irish Name</td>
-                <td><input type="text" name="irish_name"></td>
-            </tr>
-            <tr>    
-                <td>Scientific Name</td>
-                <td><input type="text" name="scientific_name"></td>
-            </tr>
-            <tr>
-                <td></td><td>
-                    <button id="create_button" onclick="doCreate()">Create</button>  
-                    <button id="update_button" onclick="doUpdate()">Update</button><br>
-                    <button onclick="window.location.href='/index.html'">Back</button>
-                </td>
-            </tr>
-        </table>
+        <h2>Native Irish Trees</h2><br><br>
+        <h3>Create New Record</h3><br>
+            <table id="createUpdateForm"> 
+                <tr id="titleRow">
+                    <td>Tree ID</td>
+                    <td><input type="number" name="tree_id" id="tree_id_input" disabled></td>
+                </tr>
+                <tr>
+                    <td>English Name</td>
+                    <td><input type="text" name="english_name"></td>
+                </tr>
+                <tr>
+                    <td>Irish Name</td>
+                    <td><input type="text" name="irish_name"></td>
+                </tr>
+                <tr>    
+                    <td>Scientific Name</td>
+                    <td><input type="text" name="scientific_name"></td>
+                </tr>
+                <tr>
+                    <td></td><td>
+                        <button id="create_button" onclick="doCreate()">Create</button>  
+                        <button id="update_button" onclick="doUpdate()">Update</button><br>
+                        <button onclick="window.location.href='/index.html'">Back</button>
+                    </td>
+                </tr>
+            </table>
     </div>
     <!-- User interface -->
     <div id="display">
-        <h2>Native Irish Trees</h2>
-        <button onClick="showCreate()">Create</button>
+        <h2>Native Irish Trees</h2><br><br>
+        <h3 style="font-size: 16px;">Create New Record</h3>
+        <button onClick="showCreate()">Create</button><br><br>
         <table id="treeTable" class="table">
             <tr>
-                <th>Tree ID</th><th>English Name</th><th>Irish Name</th><th>Scientific Name</th><th></th><th></th>
+                <th>Tree ID</th>
+                <th>English Name</th>
+                <th>Irish Name</th>
+                <th>Scientific Name</th>
+                <th></th><th></th>
             </tr>
         </table>
     </div>
-    <script>
+<script>
         // Store host address.
         host = window.location.origin
 
