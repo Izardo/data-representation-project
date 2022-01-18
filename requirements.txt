@@ -1,4 +1,4 @@
 Flask
+flask_cors
 mysql.connector
-server.py
-
+python

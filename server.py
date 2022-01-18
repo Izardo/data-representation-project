@@ -1,22 +1,87 @@
-# Rest server API to access database.
-# "Flask-RESTful is an extension for Flask that adds support for quickly building REST APIs."
-# Author: Isabell Doyle
+''' 
+    Flask app to perform CRUD operations on a Native Irish Tree database.
+    Isabella Doyle
+'''
 
-# Command to run flask from terminal - go to folder: 
-# FLASK_APP=server.py FLASK_ENV=development flask run
-
-# -*- coding: utf-8 -*-
-
-from flask import Flask , url_for, request, redirect, abort, jsonify
+from flask import Flask , url_for, request, redirect, abort, jsonify, render_template, session, g
 from flask_cors import CORS
 from treeDao import treeDao
 
-app = Flask(__name__, static_url_path='', static_folder='Static_pages')
+app = Flask(__name__, static_url_path='', static_folder='Static_pages', template_folder='templates')
 CORS(app)
 
+# Cookie signature.
+app.secret_key = 'secretkey'
+
+# User object.
+class User:
+    def __init__(self, id, username, password):
+        self.id = id
+        self.username = username
+        self.password = password 
+
+    def __repr__(self):
+        return f'<User: {self.username}>'
+
+# Create user objects.
+users = []
+users.append(User(id=1, username='Andrew', password='password'))
+users.append(User(id=2, username='Izzy', password='password'))
+
+# Store current user.
+@app.before_request
+def before_request():
+    g.user = None
+
+    if 'user_id' in session:
+        user = [x for x in users if x.id == session['user_id']][0]
+        g.user = user
+
+# Route to login page.
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+
+    if request.method == 'POST':
+
+        # Log out any user.
+        session.pop('user_id', None)
+
+        # Get user data from form.
+        username = request.form['uname']
+        password = request.form['psw']
+
+        # Authenticate username & password.
+        try:
+            user = [x for x in users if x.username == username][0]
+            if user and user.password == password:
+                session['user_id'] = user.id
+                return redirect(url_for('profile'))
+        except:
+            return redirect(url_for('login'))
+
+    return render_template('/login.html')
+
+# Route to logged in user's profile.
+@app.route('/profile')
+def profile():
+    if not g.user:
+        return redirect(url_for('login'))
+    return render_template('/profile.html')
+
+# Routes to CRUD operations.
 @app.route('/')
+def main():
+    return render_template('/login.html')
+
+# Route to static page with tree database.
+@app.route('/index')
 def index():
-    return "Tree database"
+
+    # Checks if user is authenticated.
+    if not g.user:
+        return redirect(url_for('login'))
+    else:
+        return render_template('/index.html')
 
 # Gets all tree records.
 @app.route('/trees')
@@ -28,8 +93,8 @@ def getAll():
 def findById(tree_id):
     return jsonify(treeDao.findByID(tree_id))
 
-# curl -X POST -d "{\"english_name\" : \"test\", \"irish_name\": \"test\", \"scientific_name\" : \"test\"}" -H Content-Type:application/json http://127.0.0.1:5000/trees
 # Creates a new record.
+# curl -X POST -d "{\"english_name\" : \"test\", \"irish_name\": \"test\", \"scientific_name\" : \"test\"}" -H Content-Type:application/json http://127.0.0.1:5000/trees
 @app.route('/trees', methods=['POST'])
 def create():
     
@@ -79,3 +144,11 @@ def delete(tree_id):
 
 if __name__ == "main":
     app.run(debug=True)
+
+'''
+
+References:
+
+    The authentication code was adapted from: https://www.youtube.com/watch?v=2Zz97NVbH0U
+    
+'''
