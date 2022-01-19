@@ -7,7 +7,7 @@ from flask import Flask , url_for, request, redirect, abort, jsonify, render_tem
 from flask_cors import CORS
 from treeDao import treeDao
 
-app = Flask(__name__, static_url_path='', static_folder='Static_pages', template_folder='templates')
+app = Flask(__name__, static_url_path='', static_folder='Static', template_folder='templates')
 CORS(app)
 
 # Cookie signature.
@@ -57,7 +57,7 @@ def login():
                 session['user_id'] = user.id
                 return redirect(url_for('profile'))
         except:
-            return redirect(url_for('login'))
+            return render_template('/login.html')
 
     return render_template('/login.html')
 

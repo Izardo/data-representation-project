@@ -1,0 +1,110 @@
+<!-- 
+  User login page.
+  Isabella Doyle
+-->
+
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<style>
+  body {
+    font-family:'Lucida Sans', 
+                'Lucida Sans Regular', 
+                'Lucida Grande', 
+                'Lucida Sans Unicode', 
+                Geneva, Verdana, sans-serif;
+  }
+  #background {
+      background-color: white;
+      padding: 5%;
+  }
+  h2 {
+      background-color: #344326;
+      padding: 5%;
+      border-radius: 5px;
+      color: white;
+      font-size: 40px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  #loginContainer {
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      padding: 5%;
+      max-width: 50%;
+      margin: auto;
+  }
+  img {
+      float: right;
+      width: 200px;
+  }
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  button {
+    background-color: #FAFBFC;
+    color: grey;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    border-style: groove;
+  }
+  button:hover {
+    opacity: 0.8;
+  }
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+  }
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+  .container {
+    padding: 16px;
+  }
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+</style>
+
+<body id="background">
+  <img src="https://www.hansenstree.com/wp-content/uploads/2021/02/contact-tree.png" alt="Tree">
+
+<h2>Native Irish Trees</h2>
+  <form method="POST" action='/login'>
+    <div id="loginContainer">
+        <h3 style='font-size: 30px;'>Login</h3>
+              <label for="username"><b>Username</b></label>
+              <input type="text" placeholder="Enter Username" name="uname" required>
+
+              <label for="psw"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="psw" required>
+                  
+              <button type="submit">Login</button>
+              <label>
+              <input type="checkbox" checked="checked" name="remember"> Remember me
+              </label>
+        </div>
+    </form>
+</body>
+</html>
+
+<!--   
+
+  References:
+    Button styling code adapted from: https://www.w3schools.com/howto/howto_css_login_form.asp 
+
+-->
