@@ -6,4 +6,5 @@ Web application for performing CRUD operations on SQL database:
 - HTML/CSS frontend<br>
 - Sends AJAX requests (JavaScript) to ... <br>
 - RESTful API (Python script) via Flask server <br>
-- Data Access Object (Python script) interfaces mySQL Database § Hosted on PythonAnywhere <br>
+- Data Access Object (Python script) interfaces mySQL Database
+- Hosted on PythonAnywhere <br>
