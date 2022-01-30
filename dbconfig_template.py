@@ -1,6 +1,6 @@
 mysql = {
-    'host' : 'localhost',
-    'username' : 'root',
+    'host' : '',
+    'username' : '',
     'password' : '',
-    'database' : 'native_irish_trees', 
+    'database' : '', 
 }
