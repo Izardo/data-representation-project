@@ -25,7 +25,7 @@ This repo contains the work submitted as part of the assessment for the Data Rep
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Username: Andrew 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password: password
 
-![Login Page](Other/login.png)<br>
+![LoginPage](Other/login.png)<br>
 
 - From the profile page, you can navigate to the tree database<br>
 
