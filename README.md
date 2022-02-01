@@ -15,8 +15,7 @@ This repo contains the work submitted as part of the assessment for the Data Rep
 - Install Anaconda and mySQL on your machine
 - Go to the command prompt and navigate to the repository
 - Initiate mysql and create the database by typing: mysql -u [your username] -p [your password] [database name] < initDB.sql
-- To run on local host [Full instructions here](https://flask.palletsprojects.com/en/1.1.x/quickstart/): 
-![Flask run](Other/flask_run.png)
+- To run the flask server on local host use these [instructions](https://flask.palletsprojects.com/en/1.1.x/quickstart/):
 
 ## Hosted on Pythonanywhere
 
@@ -28,5 +27,7 @@ This repo contains the work submitted as part of the assessment for the Data Rep
 ![LoginPage](Other/login.png)<br>
 
 - From the profile page, you can navigate to the tree database<br>
+
+### Database Interface
 
 ![Database](Other/database.png)
