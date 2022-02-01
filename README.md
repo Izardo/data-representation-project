@@ -17,4 +17,13 @@ This repo contains the work submitted as part of the assessment for the Data Rep
 - Initiate mysql and create the database by typing: mysql -u [your username] -p [your password] [database name] < initDB.sql
 - To run on local host [Full instructions here](https://flask.palletsprojects.com/en/1.1.x/quickstart/): 
 ![Flask run](Other/flask_run.png)
-- 
+
+## Hosted on Pythonanywhere
+
+- The app is hosted online at [http://izzymcizzface.pythonanywhere.com/](http://izzymcizzface.pythonanywhere.com/)
+- Credentials for login
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Username: Andrew 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password: password
+![Flask run](Other/login.png)
+- From the profile page, you can navigate to the tree database
+![Database](Other/database.png)
