@@ -24,6 +24,9 @@ This repo contains the work submitted as part of the assessment for the Data Rep
 - Credentials for login
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Username: Andrew 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password: password
-![Flask run](Other/login.png)
-- From the profile page, you can navigate to the tree database
+
+![Login Page](Other/login.png)<br>
+
+- From the profile page, you can navigate to the tree database<br>
+
 ![Database](Other/database.png)
