@@ -21,10 +21,11 @@ This repo contains the work submitted as part of the assessment for the Data Rep
 
 - The app is hosted online at [http://izzymcizzface.pythonanywhere.com/](http://izzymcizzface.pythonanywhere.com/)
 - Credentials for login
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Username: Andrew 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password: password
 
-![LoginPage](Other/login.png)<br>
+![LoginPage](Other/login.png)
 
 - From the profile page, you can navigate to the tree database<br>
 
